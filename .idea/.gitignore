@@ -6,3 +6,9 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+# Manually added
+/misc.xml
+/modules.xml
+/php.xml
+/vcs.xml
