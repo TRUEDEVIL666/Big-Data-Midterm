@@ -1,0 +1,10 @@
+hdfs dfs -rm -r /midterm/output-group
+hdfs dfs -rm -r /midterm/output-first-pass
+hdfs dfs -rm -r /midterm/output-second-pass
+javac ~/Desktop/Task01/*.java
+jar cf Task01.GroupMapReduce.jar -C ~/Desktop/Task01 .
+hadoop jar Task01.GroupMapReduce.jar Task01.GroupMapReduce /midterm/input/baskets.csv /midterm/output-group
+javac ~/Desktop/Task02/*.java
+jar cf AprioriMapReduce.jar -C ~/Desktop/Task02 .
+hadoop jar AprioriMapReduce.jar AprioriMapReduce /midterm/input/baskets.csv /midterm/output-first-pass /midterm/output-group /midterm/output-second-pass
+hdfs dfs -cat /midterm/output-second-pass/part-r-00000

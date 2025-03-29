@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="client">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/client" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/yarn" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/common" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/hdfs" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/mapreduce" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/common/jdiff" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/common/jdiff" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/hdfs/jdiff" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/mapreduce/jdiff" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/hdfs/jdiff" />
+      <root url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/mapreduce/jdiff" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/client" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/common" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/hdfs" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/mapreduce" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../hadoop-3.4.1/share/hadoop/yarn" recursive="false" />
+  </library>
+</component>
