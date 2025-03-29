@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/workspace.xml
+/.idea/
 # Editor-based HTTP Client requests
 /httpRequests/
 # Datasource local storage ignored files
@@ -12,9 +12,12 @@
 
 ./main.synctex
 
+# Ignore all LaTeX auxiliary files
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
+
+# Ignore entire auxil directory
 auxil/
-auxil/*.aux
-auxil/*.log
-auxil/*.toc
-auxil/*.out
-auxil/*.synctex.gz
