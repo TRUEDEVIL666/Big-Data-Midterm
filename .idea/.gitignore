@@ -8,15 +8,13 @@
 /dataSources.local.xml
 
 # Manually added
-/misc.xml
-/modules.xml
-/php.xml
-/vcs.xml
+/*.xml
 
 ./main.synctex
 
-*.aux
-*.log
-*.toc
-*.out
-*.synctex.gz
+auxil/
+auxil/*.aux
+auxil/*.log
+auxil/*.toc
+auxil/*.out
+auxil/*.synctex.gz
