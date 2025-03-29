@@ -14,3 +14,9 @@
 /vcs.xml
 
 ./main.synctex
+
+*.aux
+*.log
+*.toc
+*.out
+*.synctex.gz
