@@ -5,7 +5,6 @@
 
 MapReduce is a yarn-based system commonly used for processing massive dataset:
 
-\renewcommand{\labelitemi}{-}
 \begin{itemize}
     \item Performs concurrent processing by dividing the dataset into multiple chunks on the Hadoop commodity servers.
     \item Instead of sending the data to the machine with the logic to execute, we send the logic to the data to execute, specifically, the server.
@@ -13,16 +12,141 @@ MapReduce is a yarn-based system commonly used for processing massive dataset:
 
 \subsubsection{How MapReduce works}
 
-As the name suggests, it is executed in the order that is Map first, Reduce later:
+MapReduce is executed in the following order:
 
-\begin{enumerate}[label=\textbf{Step \arabic*.}]
-    \item \textbf{Split:} Splitting the dataset into multiple data batches.
-    \item \textbf{Map:} Mapping every element within each data batch to a $<key,value>$ pair.
-    \item \textbf{Await Completion:} Wait for all data batches to finish mapping the pairs.
-    \item \textbf{Combine:} Combine the $<key,value>$ pairs in the form of a list (e.g., [[A,1],[A,1]])
-    \item \textbf{Partition:}
-\end{enumerate}
+\begin{itemize}
+    \item Split: Divides the dataset into multiple data batches.
+    \item Map: Maps every element within each data batch to a $<key,value>$ pair.
+    \item Await Completion: Wait for all data batches to finish mapping the pairs.
+    \item Combine: Generates $<key,value>$ pairs in the form of a list (e.g., $[[A,1],[A,1]]$)
+    \item Partition: Determines which reducer should handle each key.
+    It uses a hash function (e.g., hash(key) \%num\_reducers) to distribute keys evenly.
+    \item Reduce: Processes every data assigned to it and return the output.
+\end{itemize}
 
-\subsection{Handling the Task}
-\label{subsec:handling-the-task}
+\subsection{First subtask}
+\label{subsec:first-subtask}
 
+In the first subtask, we are assigned to store the data on Hadoop Distributes File System (HDFS).
+After which we will implement a Hadoop MapReduce program in Java to discover groups of customers going shopping at the same date.
+
+\subsubsection{The Mapper Class} CustomerGroupByDateMapper
+
+The Mapper class is responsible for reading input data and emitting key-value pairs.
+Key aspects of its implementation include:
+
+\begin{itemize}
+    \item Input Processing: The input data is a CSV file with seven columns including Member\_number (customer ID) and Date (transaction date).
+    \item Filtering Headers: The Mapper ignores lines where Member\_number is a header.
+    \item Emitting Key-Value Pairs: The transaction date is used as the key, and the customer ID is used as the value.
+    This allows all customer transactions on a given date to be grouped together during the shuffle and sort phase.
+\end{itemize}
+
+Example Output from Mapper:
+\begin{center}
+(01/01/2014, 12345)\\
+(01/01/2014, 67890)\\
+(03/01/2014, 54321)
+\end{center}
+
+\subsubsection{The Reducer Class} CustomerGroupByDateReducer
+
+The Reducer class is responsible for aggregating the values emitted by the Mapper for each unique key.
+Key aspects of its implementation include:
+
+\begin{itemize}
+    \item Collecting Unique Customer IDs: The reducer stores customer IDs in a HashSet to ensure uniqueness.
+    \item Joining Values: The unique customer IDs are converted into a comma-separated string.
+    \item Emitting Results: The final output consists of the transaction date as the key and the list of unique customer IDs as the value.
+\end{itemize}
+
+Example Output from Reducer:
+\begin{center}
+(01/01/2014, 12345,67890)\\
+(03/01/2014, 54321)
+\end{center}
+
+\subsubsection{Driver Program (Main Method)}
+
+The driver program configures and executes the MapReduce job.
+It performs the following tasks:
+
+\begin{itemize}
+    \item Setting up the Job: The job is named \("\)Customer Date Groups\("\) and configured to use GroupMapReduce as the main class.
+    \item Setting Mapper and Reducer: The Mapper and Reducer classes are assigned appropriately
+    \item Defining Input and Output: The input and output paths are provided as command-line arguments
+    \item Job Execution: The job is submitted to Hadoop for execution, and the program exits based on its success or failure.
+\end{itemize}
+
+\subsection{Second subtask}
+\label{subsec:second-subtask}
+
+In the second subtask, we are assigned to implement the A-Priori algorithm to identify frequent customer pairs in the form of 02 Hadoop MapReduce programs, each corresponding to a pass.
+
+\subsubsection{The First Pass} Identifying Frequent Individual Customers
+
+\begin{itemize}
+    \item Mapper Class: AprioriFirstPassMapper
+    \begin{itemize}
+        \item Function: Reads transaction data and emits each customer ID as a key with a value of 1.
+        \item Filtering: Skips header lines and ensures valid data is processed.
+        \item Example Output from Mapper:
+        \begin{center}
+        (12345, 1)\\
+        (67890, 1)\\
+        (12345, 1)
+        \end{center}
+    \end{itemize}
+
+    \item Reducer Class: AprioriFirstPassReducer
+    \begin{itemize}
+        \item Function: Aggregates the occurrences of each customer ID.
+        \item Filtering: Only customers meeting the support threshold (minimum occurrences) are retained.
+        \item Example Output from Reducer:
+        \begin{center}
+        (12345, 2)\\
+        (67890, 1)
+        \end{center}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{The Second Pass} Identifying Frequent Customer Pairs
+
+\begin{itemize}
+    \item Mapper Class: AprioriSecondPassMapper
+    \begin{itemize}
+        \item Setup: Loads frequent customers from the first pass output using Hadoop’s distributed cache.
+        \item Processing: Reads transactions and filters out customers that did not meet the first pass threshold.
+        \item Pair Generation: Creates all possible pairs of frequent customers.
+        \item Example Output from Mapper:
+        \begin{center}
+        (12345, 67890, 1)\\
+        (12345, 54321, 1)
+        \end{center}
+    \end{itemize}
+
+    \item Reducer Class: AprioriSecondPassReducer
+    \begin{itemize}
+        \item Function: Aggregates occurrences of customer pairs and filters based on the support threshold.
+        \item Example Output from Reducer:
+        \begin{center}
+        (12345, 67890, 3)
+        \end{center}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Driver Program (Main Method)}
+
+\begin{itemize}
+    \item First Pass Execution:
+    \begin{itemize}
+        \item Runs the first MapReduce job to determine frequent individual customers.
+        \item Saves the output for use in the second pass.
+    \end{itemize}
+
+    \item Second Pass Execution:
+    \begin{itemize}
+        \item Loads the first pass results as cached data.
+        \item Runs the second MapReduce job to find frequent customer pairs.
+    \end{itemize}
+\end{itemize}
