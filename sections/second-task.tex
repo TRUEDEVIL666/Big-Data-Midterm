@@ -1,0 +1,226 @@
+\subsection{Introduction}
+\label{subsec:introduction-svm}
+
+Support Vector Machine (SVM) is a powerful and versatile supervised machine learning algorithm widely used for classification and regression tasks.
+At its core, SVM aims to find the optimal hyperplane that best separates data points of different classes while maximizing the margin between them.
+This "margin maximization" approach ensures that the classifier generalizes well on unseen data, making SVM a reliable choice for problems where clear class separation exists.
+
+SVM can work with both linear and non-linear data by using the "kernel trick" to map data into higher-dimensional spaces, allowing it to handle complex datasets that aren't linearly separable.
+This flexibility, combined with its ability to handle high-dimensional spaces and its effectiveness in real-world problems like image classification, text classification, and bioinformatics, makes SVM one of the most popular algorithms in machine learning.
+
+Despite its computational complexity in large datasets, SVM remains a go-to method for tasks requiring high accuracy and robustness.
+
+\subsection{Key features}
+\label{subsec:key-features}
+
+The following are the SVM algorithm attributes and key features:
+
+\renewcommand{\labelitemi}{-}
+\renewcommand{\labelitemii}{\bullet}
+\renewcommand{\labelitemiii}{\circ}
+
+\begin{itemize}
+    \item \textbf{Margin Maximization}: SVM works by finding the optimal hyperplane that maximizes the margin between different classes, which enhances generalization:
+    \begin{equation}
+        \label{eq:equation8}
+        w \cdot x + b = 0
+    \end{equation}
+    Where:
+    \begin{itemize}
+        \item $w$ is the weight vector that is perpendicular to the hyperplane.
+        \item $x$ is the feature vector representing a data point.
+        \item $b$ is the bias term that shifts the hyperplane.
+    \end{itemize}
+
+    Note that:
+    \begin{itemize}
+        \item For binary classification: find a hyperplane that divides the datapoints into 2 distinct groups, maximizing the margin ($\frac{2}{||w||}$) between them.
+        The constraint is:
+        \begin{equation}
+            \label{eq:equation9}
+            y_i (w \cdot x_i + b) \geq 1 \quad \text{for all} \, i
+        \end{equation}
+        Where:
+        \begin{itemize}
+            \item $y_i$ is the class label (+1 or -1).
+            \item $x_i$ is the feature vector of the $i$-th sample.
+        \end{itemize}
+        \item For multiple classification: SVM can be extended by using techniques like one-vs-one or one-vs-rest.
+        In these methods, the problem is decomposed into multiple binary classifications, and each classifier tries to separate one class from the others.
+    \end{itemize}
+
+    \item \textbf{Support Vectors}: The closest data points to the decision boundary (hyperplane) are called support vectors.
+    These critical points define the hyperplane and margin.
+
+    \item \textbf{Lagrange multipliers:} The objective is to maximize the margin, subject to the constraints.
+    We rewrite the optimization as:
+    \begin{equation}
+        \label{eq:equation11}
+        \min_{w, b} \frac{1}{2} ||w||^2
+    \end{equation}
+
+    By using Lagrange multipliers to solve the constrained optimization problem, turning it into a form that can be solved more efficiently:
+    \begin{equation}
+        \label{eq:equation14}
+        L(w,b,a) = \frac{1}{2}||w||^2 - \sum^{n}_{i=1} \alpha_i [y_i(w \cdot x_i + b) - 1]
+    \end{equation}
+    Where:
+    \begin{itemize}
+        \item $\alpha_i$ is the Lagrange multiplier associated with the constraint for the i-th data point.
+        \item $n$ is the number of data points in the training set.
+        \item $||w||^2$ is the squared norm of the weight vector, used to define the margin.
+    \end{itemize}
+
+    $y_i(w \cdot x_i + b) - 1$ ensures that data point $x_i$ is correctly classified:
+    \[\left\{
+            \begin{array}{ll}
+                > 0 & : \text{data point is correctly classified.} \\
+                = 0 & : \text{data point is on the margin, which makes it a support vector.} \\
+                < 0 & : \text{data point is incorrectly classified.}
+            \end{array}
+    \]
+
+    \item \textbf{Dual Formulation:} To eliminate the weights w and b, we take the derivatives of the Lagrangian with respect to w and b, and set them equal to zero.
+    After simplification, this leads to the dual formulation of the SVM optimization problem:
+    \begin{equation}
+        \label{eq:equation12}
+        \max_\alpha \left[ \sum^{n}_{i=1} \alpha_i - \frac{1}{2} \sum_{i,j=1}^{n} \alpha_i \alpha_j y_i y_j (x_i \cdot x_j) \right]
+    \end{equation}
+    Where:
+    \begin{itemize}
+        \item $x_i, x_j$ are the data points.
+        \item $y_i, y_j$ are the respective class labels.
+    \end{itemize}
+
+    subject to the constraints:
+    \begin{equation}
+        \label{eq:equation15}
+        \alpha_i \geq 0, \sum^{n}_{i=1} \alpha_i y_i = 0
+    \end{equation}
+
+    \item \textbf{Linear and Non-Linear Classification}: SVM can handle both linear and non-linear classification problems.
+    It uses kernel functions to map data into higher-dimensional spaces for non-linear separation.
+
+    \item \textbf{Kernel Trick}: The kernel trick enables SVM to operate in higher-dimensional spaces without explicitly transforming the data, making it effective for complex, non-linear problems.
+
+    \item \textbf{Robust to High Dimensionality}: SVM performs well in high-dimensional spaces and works effectively even when the number of features exceeds the number of samples.
+
+    \item \textbf{Binary and Multi-Class Classification}: SVM is naturally a binary classifier but can be extended to multi-class classification using strategies such as one-vs-one (OvO) or one-vs-all (OvA).
+
+    \item \textbf{Regularization}: The regularization parameter (C) balances the trade-off between achieving a low error on the training data and maintaining a large margin, affecting model performance and overfitting.
+
+    \item \textbf{Robustness to Outliers}: SVM’s soft margin allows for some misclassification, which helps it handle noise and outliers effectively, especially with proper tuning of the C parameter.
+
+    \item \textbf{Global Optimization}: SVM solves a convex optimization problem, ensuring it finds the global optimum solution and avoids issues like local minima.
+
+    \item \textbf{Works Well with Small to Medium Datasets}: SVM is particularly effective on smaller to medium-sized datasets with clear margin separation but may struggle with very large datasets due to its computational complexity.
+\end{itemize}
+
+\subsection{Support Vector Machine Process}
+\label{subsec:support-vector-machine-process}
+
+support Vector Machine process can be broken down to several steps seen below:
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item Preparing the data: gather the training data and handle it so the model can process it.
+
+    \renewcommand{\labelitemi}{\bullet}
+    \item Choosing the Right Kernel: In many cases, the data cannot be separated linearly, so a transformation is performed using a kernel function. Some commonly used kernel functions are:
+    \begin{itemize}
+        \item \textbf{Linear Kernel}: No transformation is applied, used when data is linearly separable.
+        \item \textbf{Polynomial Kernel}: Transforms the data into higher dimensions by using polynomial functions.
+        \item \textbf{Radial Basis Function (RBF) Kernel}: Maps data into an infinite-dimensional space, used when data is not linearly separable.
+    \end{itemize}
+
+    \renewcommand{\labelitemi}{-}
+    \item Linear Separation: SVM aims to find a hyperplane that best separates the data into different classes.
+
+    \item Maximizing the Margin: Maximize the distance between the hyperplane and the nearest data points from each class (support vectors).
+    Larger margin means better generalization.
+
+    \item Training the Model: Optimization problem involves minimizing the objective function that maximizes the margin while ensuring correct classification of the training data points.
+    This is typically solved using methods like Sequential Minimal Optimization (SMO).
+
+    \item Making Predictions: Once the optimal weights and bias are obtained, classify new data points using the decision function:
+    \begin{equation}
+        f(x) = w \cdot x + b\label{eq:equation10}
+    \end{equation}
+
+    \item Regularization and C Parameter: The regularization parameter \(C\) controls the trade-off between maximizing the margin and minimizing the classification error.
+    \begin{itemize}
+        \item \textbf{Large C value:} gives higher importance to minimizing errors.
+        \item \textbf{Small C value:} allows more margin flexibility (allowing some misclassifications).
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Advantages}
+\label{subsec:advantages-svm}
+
+Support Vector Machines (SVM) have several advantages, making them a popular choice for classification and regression tasks.
+Some key advantages are:
+
+\begin{itemize}
+    \item \textbf{Effective in High-Dimensional Spaces:} SVM performs well in high-dimensional spaces. The use of the \textit{kernel trick} allows SVM to efficiently handle non-linear data by mapping it into higher-dimensional feature spaces.
+
+    \item \textbf{Robust to Overfitting (Especially in High Dimensions):} SVM's margin maximization ensures that it focuses on the most important data points (support vectors), which helps prevent overfitting (e.g., number of features greater than the number of samples). The regularization parameter $C$ helps control the trade-off between achieving a low error on the training data and maximizing the margin, preventing overfitting.
+
+    \item \textbf{Versatility with Kernels:} SVM can be adapted to different types of problems via the \textit{kernel trick}.
+    By applying different kernels (e.g., linear, polynomial, Gaussian), SVM can efficiently handle non-linearly separable data, transforming it into a higher-dimensional space where linear separation becomes possible.
+
+    \item \textbf{Memory Efficiency:} SVM only uses a subset of the training data, known as the \textit{support vectors}, for decision-making.
+    This makes SVM very efficient in terms of storage, especially with large datasets.
+
+    \item \textbf{Global Optimum:} Since the objective function of SVM is convex, it ensures that there is a single global minimum, which prevents getting stuck in a local minimum.
+
+    \item \textbf{Clear Margin of Separation:} The decision boundary with the \textit{largest possible margin} allows the classifier more to be more generalizable when making predictions on new, unseen data.
+
+    \item \textbf{Effective for Complex Decision Boundaries:} Using the kernel trick, SVM can find complex decision boundaries in cases where data is not linearly separable.
+    The kernel allows it to project data into higher-dimensional spaces where linear separation is possible, making it effective for complex classification tasks.
+
+    \item \textbf{Works Well with Both Linear and Non-Linear Data:} SVM can handle both linear and non-linear decision boundaries via the kernel trick, making it versatile for a wide variety of problems.
+
+    \item \textbf{Robust to Noise (with soft margin):} In cases where the data contains noise or overlaps between classes, SVM allows the use of a \textit{soft margin}.
+    By introducing the \textit{slack variables}, SVM can tolerate some misclassification, while still maintaining a large margin, making it more robust to noise.
+\end{itemize}
+
+\subsection{Disadvantages}
+\label{subsec:disadvantages-svm}
+
+Support Vector Machines (SVM) are powerful classification algorithms, but they have several disadvantages:
+
+\begin{itemize}
+    \item \textbf{Computational Complexity}: SVMs can be computationally expensive since the training complexity is \textit{at least} O(n²) to O(n³) (where n is the number of samples), making them inefficient for large datasets.
+    \item \textbf{Sensitive to Kernel Selection}: SVM relies on kernel functions (linear, polynomial, RBF, sigmoid, etc.), and choosing the right kernel for a specific problem is challenging.
+    \item \textbf{Noisy and Overlapping Data}: If classes aren't well separated, have a lot of noise or overlapping classes, SVM may have difficulty finding the decision boundary.
+    \item \textbf{Sensitive to Unbalanced Data}: If the dataset is imbalanced, SVM might required additional techniques such as class weighting or resampling.
+    \item \textbf{Difficult Interpretation}: Unlike decision trees or logistic regression, SVMs with non-linear kernels are often considered black-box models, as their decision-making process is not easily interpretable beyond the inputs and outputs.
+    \item \textbf{Parameter Tuning}: SVM requires several parameters such as the regularization parameter $C$ and kernel type, which require cross-validation, a computationally expensive technique.
+    \item \textbf{Multiclass Problems Scalability}: SVMs are inherently binary classifiers.
+    To handle multiple classes, techniques like one-vs-one (OvO) or one-vs-all (OvA) are used, but they increase computational cost and complexity.
+    \item \textbf{Sensitive to Feature Scaling}: SVM relies on distance-based calculations, hence the need for normalization preprocessing.
+\end{itemize}
+
+\subsection{Use Cases}
+\label{subsec:use-cases}
+
+SVM is widely used in various domains due to its strong classification and regression capabilities, especially in high-dimensional spaces.
+Below are some key use cases:
+
+\begin{itemize}
+    \item \textbf{Text Classification:} SVM can classify emails as spam or non-spam based on keywords and patterns.
+    \item \textbf{Recommendation System:} Analyzing the customer reviews and classify their sentiments as well as recommend products.
+    \item \textbf{Image Processing and Computer Vision:} SVM can effectively classify and detect faces, handwriting and objects in images.
+    \item \textbf{Medical Diagnosis:} Thanks to its capability to process high dimensionality dataset, it can diagnose diseases from symptoms, along with external diseases from image.
+    In addition, it can classify genes based on biological data.
+    \item \textbf{Financial Application:} Analyze historical data and predict market trends.
+    \item \textbf{Cybersecurity:} Detect malicious activities such as unusual bank transactions and phishing links.
+    \item \textbf{Industrial Application:} Detect defective products in production line as well as predicting and identifying potential machine failures.
+\end{itemize}
+
+\subsection{Summary}
+\label{subsec:summary-svm}
+
+Support Vector Machine (SVM) is a supervised learning algorithm for classification and regression.
+It finds the optimal hyperplane that maximizes the margin between classes, using support vectors.
+For non-linear data, SVM applies the kernel trick to transform it into a higher-dimensional space.
+However, despite its strong performance in high-dimensional spaces, SVM can be computationally expensive for large datasets, sensitive to noise, and may require careful tuning of hyperparameters to achieve optimal results.

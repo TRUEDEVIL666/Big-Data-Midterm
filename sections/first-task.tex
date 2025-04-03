@@ -1,0 +1,28 @@
+\subsection{Overview of MapReduce}
+\label{subsec:overview-of-mapreduce}
+
+\subsubsection{What is MapReduce}
+
+MapReduce is a yarn-based system commonly used for processing massive dataset:
+
+\renewcommand{\labelitemi}{-}
+\begin{itemize}
+    \item Performs concurrent processing by dividing the dataset into multiple chunks on the Hadoop commodity servers.
+    \item Instead of sending the data to the machine with the logic to execute, we send the logic to the data to execute, specifically, the server.
+\end{itemize}
+
+\subsubsection{How MapReduce works}
+
+As the name suggests, it is executed in the order that is Map first, Reduce later:
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+    \item \textbf{Split:} Splitting the dataset into multiple data batches.
+    \item \textbf{Map:} Mapping every element within each data batch to a $<key,value>$ pair.
+    \item \textbf{Await Completion:} Wait for all data batches to finish mapping the pairs.
+    \item \textbf{Combine:} Combine the $<key,value>$ pairs in the form of a list (e.g., [[A,1],[A,1]])
+    \item \textbf{Partition:}
+\end{enumerate}
+
+\subsection{Handling the Task}
+\label{subsec:handling-the-task}
+

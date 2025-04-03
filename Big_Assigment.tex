@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+%\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{cite}
+\usepackage{lipsum}
+\usepackage{minted}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=blue]{hyperref}
+\usepackage{amstex}
+
+\geometry{a4paper, margin=1in}
+
+\title{\textbf{
+    \Huge
+    Midterm Report
+    \\[1cm]
+    Big Data
+}}
+
+\author{
+    \textit{Instructor: insert title here for Nguyen Thanh An}
+    \\[10cm]
+    \textit{Authors:}
+    \\
+    \textit{522H0036 - Luong Canh Phong}
+    \\
+    \textit{522H0092 - Cao Nguyen Thai Thuan}
+    \\
+    \textit{522H0075 - Tang Minh Thien An}
+    \\
+    \textit{522H0167 - Truong Tri Phong}
+}
+
+\date{\vfill\centering{\today}}
+
+\documentclass{article}
+\begin{document}
+    \pagenumbering{roman}
+    \maketitle
+    \newpage
+
+    \renewcommand{\abstractname}{\Large\uppercase{Abstract}\\[1cm]}
+    \begin{abstract}
+        \large{
+            Nothing here yet.
+        }
+    \end{abstract}
+    \addcontentsline{toc}{section}{ABSTRACT}
+    \newpage
+
+    \pagenumbering{arabic}
+    \renewcommand{\contentsname}{\centering\textbf{\MakeUppercase{Table of Contents}}}
+    \tableofcontents
+    \newpage
+
+    \section{First task: Java MapReduce}
+    \label{sec:first-task}
+    \input{sections/first-task}
+
+    \section{Second Task: Python DataFrame}
+    \label{sec:second-task}
+    \input{sections/second-task}
+    \newpage
+
+    \section{References}
+    \label{sec:references}
+    \begin{thebibliography}{99}
+        \bibitem{ref1} Additive Smoothing.\textit{Wikipedia, The Free Encyclopedia}.
+            [Online].
+
+            Available: \url{https://en.wikipedia.org/wiki/Additive_smoothing}.
+
+            [Accessed: April 02, 2025].
+        \bibitem{ref2} Naive Bayes Classification (NBC).\textit{Machine Learning Co Ban}.
+            [Online].
+
+            Available: \url{https://machinelearningcoban.com/2017/08/08/nbc/}.
+
+            [Accessed: April 01, 2025].
+        \bibitem{ref3} Support Vector Machine (SVM).\textit{Machine Learning Co Ban}.
+            [Online].
+
+            Available: \url{https://machinelearningcoban.com/2017/04/09/smv/}.
+
+            [Accessed: April 02, 2025].
+        \bibitem{ref4} Lagrange multiplier.\textit{Wikipedia, The Free Encyclopedia}.
+            [Online].
+
+            Available: \url{https://en.wikipedia.org/wiki/Lagrange_multiplier}.
+
+            [Accessed: April 02, 2025].
+    \end{thebibliography}
+\end{document}
