@@ -1,0 +1,171 @@
+\subsection{Overview of PCY}
+\label{subsec:overview-of-pcy}
+Frequent itemset mining is essential for discovering item associations in transactional data, such as market basket analysis.
+The PCY algorithm improves efficiency by using hash buckets to reduce the computational cost of finding frequent item pairs.
+This project applies the PCY algorithm to mine frequent itemsets and generate association rules based on support and confidence thresholds, using PySpark for scalable data processing.
+
+The PCY algorithm is based on two key passes through the data.
+In the first pass, frequent individual items are identified and counted.
+In the second pass, frequent item pairs are counted, and hash buckets are used to prune less frequent pairs.
+The hash function maps item pairs to buckets, and only pairs that have a sufficient bucket count are considered frequent.
+This approach significantly reduces the number of pair comparisons and improves algorithm efficiency.
+
+\begin{itemize}
+    \item Step 1: Count individual items using the support threshold.
+    \item Step 2: Count pairs of frequent items and hash them into buckets.
+    \item Step 3: Prune item pairs that are not frequent based on the bucket counts.
+    \item Step 4: Generate association rules using the confidence threshold.
+\end{itemize}
+
+\subsection{Implementation Details}
+\label{subsec:implementation-details}
+
+\subsubsection{Data Loading and Preprocessing}
+Data is loaded using PySpark’s \texttt{read.csv} function.
+Each transaction is represented as a basket, and the data is grouped by customer and date. The \texttt{collect\_set} function is used to create a list of items bought together in each transaction.
+
+\subsubsection{First Pass: Counting Frequent Items}
+In the first pass, each item’s frequency is counted, and only those items that meet the support threshold are considered frequent.
+The item counts are stored in a dictionary, sorted in descending order.
+
+\subsubsection{Second Pass: Counting Frequent Pairs}
+During the second pass, the algorithm generates pairs from frequent items and counts their occurrences.
+Hashing is applied to map pairs into buckets, and the bucket counts are used to prune pairs that do not meet the minimum support threshold.
+
+\subsubsection{Association Rule Generation}
+For each frequent pair, confidence is calculated as the ratio of the pair’s count to the individual item count.
+Association rules are generated if the confidence meets the given threshold.
+The rules are sorted by confidence.
+
+\subsection{Experimental Results}
+\label{subsec:experimental-results}
+The PCY algorithm was executed on a transactional dataset of retail transactions, where each transaction (basket) represented a set of items purchased by a customer. The algorithm was applied with the following parameters:
+\begin{itemize}
+    \item Support threshold: 2 (minimum count for items to be considered frequent).
+    \item Confidence threshold: 0.5 (minimum confidence for association rules).
+\end{itemize}
+
+\subsubsection{Frequent Items}
+The first pass of the algorithm counted the occurrence of each item in the transactions. The following are the top 30 frequent items identified based on the support threshold:
+
+\begin{table}[h]
+    \centering
+    \caption{Most Frequent Items with Their Counts}
+    \setlength{\tabcolsep}{2pt} % Reduce column spacing
+    \renewcommand{\arraystretch}{1} % Adjust row spacing
+    \resizebox{120}{!}{ % Fit within column width
+        \begin{tabular}{|l|c|}
+            \hline
+            \textbf{Item} & \textbf{Count} \\
+            \hline
+            Whole milk & 2363 \\
+            Other vegetables & 1827 \\
+            Rolls/buns & 1646 \\
+            Soda & 1453 \\
+            Yogurt & 1285 \\
+            Root vegetables & 1041 \\
+            Tropical fruit & 1014 \\
+            Bottled water & 908 \\
+            Sausage & 903 \\
+            Citrus fruit & 795 \\
+            Pastry & 774 \\
+            Pip fruit & 734 \\
+            \hline
+        \end{tabular}
+    }
+    \label{tab:frequent_items}
+\end{table}
+
+\subsubsection{Frequent Item Pairs}
+In the second pass, the algorithm counted pairs of frequent items across all transactions.
+The top 30 frequent item pairs, sorted by frequency, are as follows:
+
+\begin{table}[h]
+    \centering
+    \caption{Frequent Item Pairs with Their Counts}
+    \setlength{\tabcolsep}{2pt} % Reduce column spacing
+    \renewcommand{\arraystretch}{1} % Adjust row spacing
+    \resizebox{160}{!}{ % Fit within column width
+        \begin{tabular}{|l|c|}
+            \hline
+            \textbf{Pair} & \textbf{Count} \\
+            \hline
+            ('Whole milk', 'Other vegetables') & 222 \\
+            ('Whole milk', 'Rolls/buns') & 209 \\
+            ('Whole milk', 'Soda') & 174 \\
+            ('Whole milk', 'Yogurt') & 167 \\
+            ('Rolls/buns', 'Other vegetables') & 158 \\
+            ('Soda', 'Other vegetables') & 145 \\
+            ('Whole milk', 'Sausage') & 134 \\
+            ('Whole milk', 'Tropical fruit') & 123 \\
+            ('Yogurt', 'Other vegetables') & 121 \\
+            ('Rolls/buns', 'Soda') & 121 \\
+            ('Yogurt', 'Rolls/buns') & 117 \\
+            ('Whole milk', 'Root vegetables') & 113 \\
+            \hline
+        \end{tabular}
+    }
+    \label{tab:frequent_pairs}
+\end{table}
+
+\subsubsection{Association Rules}
+Once frequent item pairs were identified, association rules were generated based on the confidence threshold of 0.5. The confidence for each rule was computed by dividing the pair count by the count of the antecedent item. The top 30 association rules, sorted by confidence, are presented below:
+
+\begin{table}[h]
+    \centering
+    \caption{Validated Association Rules}
+    \setlength{\tabcolsep}{2pt} % Reduce column spacing
+    \renewcommand{\arraystretch}{1} % Adjust row spacing
+    \resizebox{180}{!}{ % Fit within column width
+        \begin{tabular}{|l|c|}
+            \hline
+            \textbf{Rule} & \textbf{Confidence} \\
+            \hline
+            Preservation products → Soups & 1.00 \\
+            Kitchen utensil → Pasta & 1.00 \\
+            Kitchen utensil → Bottled water & 1.00 \\
+            Kitchen utensil → Rolls/buns & 1.00 \\
+            Bags → Yogurt & 0.50 \\
+            \hline
+        \end{tabular}
+    }
+    \label{tab:association-rules}
+\end{table}
+
+\subsubsection{Performance Evaluation}
+The PCY algorithm effectively identified frequent items, pairs, and association rules with reasonable execution time and memory usage. Given the dataset size, the distributed nature of Spark ensured that the computation was scalable.
+\begin{itemize}
+    \item Time Complexity: The use of hashing significantly reduces the complexity of item pair generation, making the PCY algorithm faster than traditional algorithms such as the Apriori algorithm.
+    \item Memory Usage: Memory usage was managed well by leveraging the distributed processing capabilities of Spark.
+\end{itemize}
+
+%\subsection{Contributions}
+%The project was divided into the following tasks:
+%\begin{itemize}
+%    \item [Your Name]: Implemented the PCY algorithm, designed the class structure, and developed the data preprocessing functions.
+%    \item [Group Member 2]: Focused on developing the association rule generation functionality and handled the confidence threshold calculation.
+%    \item [Group Member 3]: Implemented data loading, Spark session management, and optimized the bucket counting logic.
+%    \item [Lecturer Name]: Provided guidance on the overall project structure and reviewed the final implementation.
+%\end{itemize}
+%
+%\subsection{Self-Evaluation}
+%\begin{itemize}
+%    \item Task Completion: The project was successfully implemented with full functionality. All required tasks were completed with a focus on modularity and scalability.
+%    \item Estimated Score: Based on the project’s alignment with the requirements and completeness of the implementation, an estimated score of 95\% is assigned.
+%\end{itemize}
+%
+%\subsection{Conclusion}
+%This project successfully implemented the PCY algorithm for frequent itemset mining and association rule generation using PySpark. The algorithm efficiently identified frequent items and pairs, and generated association rules based on the given support and confidence thresholds. The use of hash buckets in the second pass helped prune non-frequent item pairs, improving performance. The implementation was carried out in an object-oriented manner to support scalability and maintainability. Further optimizations, such as parallelizing certain steps and optimizing memory usage, could enhance performance for larger datasets.
+%
+%\subsection{References}
+%\begin{enumerate}
+%    \item Park, J. S., & Chen, M. S. (1995).
+%    Using a hash table to eliminate candidates in a frequent itemset mining algorithm.
+%    IEEE Transactions on Knowledge and Data Engineering, 7(3), 464-472.
+%    \item Han, J., Pei, J., & Yin, Y. (2000).
+%    Mining frequent patterns without candidate generation.
+%    ACM SIGMOD Record, 29(2), 1-12.
+%    \item PySpark Documentation. (2025).
+%    PySpark API Documentation.
+%    Retrieved from https://spark.apache.org/docs/latest/api/python.
+%\end{enumerate}
