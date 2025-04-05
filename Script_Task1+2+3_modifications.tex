@@ -11,34 +11,32 @@
 
 \maketitle
 
-\section{Introduction}
--[This introduction is for the whole of the project, delete this after transfer]-
-
-In the age of big data, the ability to mine and extract valuable information from massive datasets can give the user an unparalleled edge against the competition. Therefore, this requirements made by the lecturer is designed to simulate of the three most fundamental challenges in data mining. Through these series of tasks, we will explore some algorithm implementations and solve different problems as well as explore their trade-offs. Each task is a different algorithm to explore and implement with their corresponding datasets. Through these tasks, we will gain some practical insight and experience in working with these algorithms as well as a better understanding of their pros and cons to be able to cater to each datasets based on their charactieristics. 
-
-
 \section{Abstract}
--[This section is for the abstraction of the report - delete after transfer.]-
+-[This abstract is for the whole of the project, delete this after transfer]-
+
+In the age of big data, the ability to mine and extract valuable information from massive datasets can give the user an unparalleled edge against the competition. Therefore, these requirements made by the lecturer are designed to simulate three of the most fundamental challenges in data mining. Through this series of tasks, we will explore some algorithm implementations and solve different problems as well as explore their trade-offs. Each task involves a different algorithm to explore and implement with their corresponding datasets. Through these tasks, we will gain practical insight and experience in working with these algorithms as well as a better understanding of their pros and cons to be able to cater to each dataset based on its characteristics.
+
+\section{Introduction}
+-[This section is for the introduction of the report - delete after transfer.]-
 
 This report is divided into three large sections corresponding to the first three tasks provided by the lecturer. We will explore and present our findings while putting the proposed algorithms into practice.
 
-Task 1 propose utilizing the A-Priori algorithm in a Hadoop MapReduce program to discover groups of customers shopping in the same date as well as interacting with HDFS to store files. By applying these methods, we will be able to understand how to extract patterns from large datasets locally. The program is designed to process the whole dataset and return the complete result after processing all data points.
+Task 1 proposes utilizing the A-Priori algorithm in a Hadoop MapReduce program to discover groups of customers shopping on the same date as well as interacting with HDFS to store files. By applying these methods, we will be able to understand how to extract patterns from large datasets locally.
 
-The second task focuses in implementing the PCY algorithm using OOP principles and PySpark DataFrame to identify frequent item pairs and generate association rules from customer purchase data stored in Google Drive. Our implementation includes a basic design of the hashing function and bucket management techniques while also generating assoiation rules and following object-oriented programming principles inspired by PySpark's FPGrowth class.
+The second task focuses on implementing the PCY algorithm using OOP principles and PySpark DataFrame to identify frequent item pairs and generate association rules from customer purchase data stored in Google Drive. The implementation, while generating association rules, also has to follow object-oriented programming principles inspired by PySpark's FPGrowth class.
 
-In the third task, we will implement and compare between the MinHashLSH algorithm and an alternative of our choice - in this case is a manual method of calculating Jaccard distance. Both of these approaches should achieve the same goal of searching for similar pairs of dates where the Jaccard distance is above a predetermined threshold. After that, we will visualize their runtime with their threshold ranging from 0 to 1 with 0.1 increments to gauge their performance and outline some characteristics between both approaches.
+In the third task, we will implement and compare the MinHashLSH algorithm and an alternative of our choice - in this case, a manual method of calculating Jaccard distance. Both of these approaches should achieve the same goal of searching for similar pairs of dates where the Jaccard distance is above a predetermined threshold. After that, we will visualize their runtime with their threshold ranging from 0 to 1 with 0.1 increments to gauge their performance and outline some characteristics between both approaches.
 
-Through these implementations, we demonstrate practical applications of data mining techniques with a given dataset. With these findings, we highlights the trade-offs between various aspects across different algorithms within the given time and constraints.
-
+Through these implementations, we demonstrate practical applications of data mining techniques with a given dataset. With these findings, we highlight the trade-offs between various aspects across different algorithms within the given time and constraints.
 
 \section{Approach}
 Firstly, we will go through the theoretical basis and its possible implementation in the context of our task, after which, we will see the algorithm in action.
 
 \section{Theoretical basis}
-The core of MinHashLSH algorithm is the utilization of two concepts: MinHash signatures and locality-sensitive hashing (LSH) to create and effective algorithm for detecting similar sets. The first concept describe the process of hashing the dataset into more manageable "signature" for each set. While the later describes how these "signatures" will be stored to achieve the expected result.
+The core of the MinHashLSH algorithm is the utilization of two concepts: MinHash signatures and locality-sensitive hashing (LSH) to create an effective algorithm for detecting similar sets. The first concept describes the process of hashing the dataset into more manageable "signatures" for each set. While the latter describes how these "signatures" will be stored to achieve the expected result.
 
 \subsection{Jaccard distance and Shingling}
-Before performing any calculations to any data, we must convert the raw data into a distinguish vector before using any distance calculation between the two sets to check for their similarity. Shingling perform this task by breaking down text data into smaller units to create "shingles" before hashing them into their representation in the form of a binary vector.  
+Before performing any calculations on any data, we must convert the raw data into a distinguishable vector before using any distance calculation between the two sets to check for their similarity. Shingling performs this task by breaking down text data into smaller units to create "shingles" before hashing them into their representation in the form of a binary vector.
 
 The Jaccard distance describes the similarity between two different sets and is represented by the following formula:
 
@@ -47,11 +45,10 @@ $
 
 With the result ranging from 0 to 1, we can determine whether or not the sets in question are related to each other or not for bucket assignment.
 
-
 \subsection{MinHash Signature}
-In order to find determine if the pairs are similar or not, we need a way to convert the raw data into usable data for the algorithm to process. In this case, MinHashing is used to perform this task. The binary vector, created through a process of shigling, is converted into a signature vector. Note that if these sets are similar, their signature vector will also have some similarities, and these can be utilized by the algorithm to sort these sets into their suitable buckets.
+In order to determine if the pairs are similar or not, we need a way to convert the raw data into usable data for the algorithm to process. In this case, MinHashing is used to perform this task. The binary vector, created through a process of shingling, is converted into a signature vector. Note that if these sets are similar, their signature vectors will also have some similarities, and these can be utilized by the algorithm to sort these sets into their suitable buckets.
 
 \subsection{Locality Sensitive Hashing}
-The idea of LSH when dealing with the problem of finding similar pairs or sets is to maximize the probability of collision in a bucket due to that fact that the hash-code for these sets would be indifferent (if these sets are the similar) and therefore they should be in the same bucket. We can achieve this by breaking the hash-code down even more into subsequences of hash-code that has a higher chance of being similar, giving us a higher chance of finding similar pairs, improving the effectiveness of the algorithm at solving the problem.
+The idea of LSH when dealing with the problem of finding similar pairs or sets is to maximize the probability of collision in a bucket due to the fact that the hash-code for these sets would be indifferent (if these sets are similar) and therefore they should be in the same bucket. We can achieve this by breaking the hash-code down even more into subsequences of hash-code that has a higher chance of being similar, giving us a higher chance of finding similar pairs, improving the effectiveness of the algorithm at solving the problem.
 
 \end{document}
