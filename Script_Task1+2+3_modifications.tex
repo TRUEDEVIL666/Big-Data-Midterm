@@ -14,63 +14,44 @@
 \section{Introduction}
 -[This introduction is for the whole of the project, delete this after transfer]-
 
-In the age of big data, the ability to mine and extract valuable information from massive datasets can give the user an unparalleled edge against the competition. Therefore, this project is designed to simulate some of the three most fundamental challenges in data mining. Through these series of tasks, we will explore some algorithm implementations and solve different problems as well as explore their trade-offs 
-
-The first task revolves around implementing the A-Priori algorithm in a Hadoop MapReduce program to discover groups of customers shopping in the same date as well as interacting with HDFS to store files and processing them. By applying these methods, we will be able to understand how to extract patterns from large datasets.
-
-The second task focuses in implementing the PCY algorithm using OOP principles to discover patterns from the data. Compared to A-Priori, PCY provides some meaning and actionable metadata derived from the dataset that can be utilized later by the client.
-
-The third task explores the MinHashLSH algorithm and an alternative manual implementation of jaccard distance to discover similar pairs of dates that pass a predetermined threshold with some visualization between both approach to understand their strengths and weaknesses.
-
-Together, these tasks provides an outlines for some of the most basic operations on data mining techniques. This project not only provide some practical experience on these algorithms but also condition our mindset and form a general processing pipeline based on the characteristics of the given dataset. 
+In the age of big data, the ability to mine and extract valuable information from massive datasets can give the user an unparalleled edge against the competition. Therefore, this requirements made by the lecturer is designed to simulate of the three most fundamental challenges in data mining. Through these series of tasks, we will explore some algorithm implementations and solve different problems as well as explore their trade-offs. Each task is a different algorithm to explore and implement with their corresponding datasets. Through these tasks, we will gain some practical insight and experience in working with these algorithms as well as a better understanding of their pros and cons to be able to cater to each datasets based on their charactieristics. 
 
 
-\begin{abstract}
--[This section is for the first task of the report - delete after transfer.]-
-In this section of the report, we will implement a MapReduce version of the A-Priori algorithm to identify groups of customers that shop on the same dates. The program is designed to process the whole of the dataset and return the complete result after processing all data points.
+\section{Abstract}
+-[This section is for the abstraction of the report - delete after transfer.]-
 
+This report is divided into three large sections corresponding to the first three tasks provided by the lecturer. We will explore and present our findings while putting the proposed algorithms into practice.
 
-\end{abstract}
+Task 1 propose utilizing the A-Priori algorithm in a Hadoop MapReduce program to discover groups of customers shopping in the same date as well as interacting with HDFS to store files. By applying these methods, we will be able to understand how to extract patterns from large datasets locally. The program is designed to process the whole dataset and return the complete result after processing all data points.
 
-\begin{abstract}
--[This section is for the second task of the report - delete after transfer.]-
-For this section of the report, we will go through a different algorithm - the PCY algorithm while using PySpark DataFrame to identify frequent item pairs and generate association rules from customer purchase data stored in Google Drive. Our implementation includes a basic design of the hashing function and bucket management techniques while following object-oriented programming principles inspired by PySpark's FPGrowth class.
+The second task focuses in implementing the PCY algorithm using OOP principles and PySpark DataFrame to identify frequent item pairs and generate association rules from customer purchase data stored in Google Drive. Our implementation includes a basic design of the hashing function and bucket management techniques while also generating assoiation rules and following object-oriented programming principles inspired by PySpark's FPGrowth class.
 
+In the third task, we will implement and compare between the MinHashLSH algorithm and an alternative of our choice - in this case is a manual method of calculating Jaccard distance. Both of these approaches should achieve the same goal of searching for similar pairs of dates where the Jaccard distance is above a predetermined threshold. After that, we will visualize their runtime with their threshold ranging from 0 to 1 with 0.1 increments to gauge their performance and outline some characteristics between both approaches.
 
-
-\end{abstract}
-
-\begin{abstract}
--[This section is for the third task of the report - delete after transfer.]-
-For our last section of the report, we will implement not only a proposed algorithm but also try and implement another way of our choosing, in our case, a manual Jaccard calculation method. Both of these approaches should achieve the some goal of searching for similar pairs of dates where the Jaccard distance is above a predetermined threshold. With all goals achieved, we will visualize their runtime from 0 to 1 with 0.1 increment to gauge their performance and outline some characteristics between both approaches.
-
-
-\end{abstract}
-
-
+Through these implementations, we demonstrate practical applications of data mining techniques with a given dataset. With these findings, we highlights the trade-offs between various aspects across different algorithms within the given time and constraints.
 
 
 \section{Approach}
-Firstly, we will go through the theoretical basis and its possible implementation in the context of our task
+Firstly, we will go through the theoretical basis and its possible implementation in the context of our task, after which, we will see the algorithm in action.
 
 \section{Theoretical basis}
+The core of MinHashLSH algorithm is the utilization of two concepts: MinHash signatures and locality-sensitive hashing (LSH) to create and effective algorithm for detecting similar sets. The first concept describe the process of hashing the dataset into more manageable "signature" for each set. While the later describes how these "signatures" will be stored to achieve the expected result.
 
-\subsection{Underlying idea}
+\subsection{Jaccard distance and Shingling}
+Before performing any calculations to any data, we must convert the raw data into a distinguish vector before using any distance calculation between the two sets to check for their similarity. Shingling perform this task by breaking down text data into smaller units to create "shingles" before hashing them into their representation in the form of a binary vector.  
 
+The Jaccard distance describes the similarity between two different sets and is represented by the following formula:
 
-\subsection{}
+$d_J(A,B) = \frac{|A \cup B| - |A \cap B|}{|A \cup B|} = 1 - J(A,B)
+$
 
-
-\subsection{Second Pass: Counting Frequent Pairs}
-During the second pass, the algorithm generates pairs 
-
-\subsection{Association Rule Generation}
-For each frequent pair, confidence is calculated 
-\section{Code implementation}
-
-\subsection{Underlying idea}
+With the result ranging from 0 to 1, we can determine whether or not the sets in question are related to each other or not for bucket assignment.
 
 
-\subsection{}
+\subsection{MinHash Signature}
+In order to find determine if the pairs are similar or not, we need a way to convert the raw data into usable data for the algorithm to process. In this case, MinHashing is used to perform this task. The binary vector, created through a process of shigling, is converted into a signature vector. Note that if these sets are similar, their signature vector will also have some similarities, and these can be utilized by the algorithm to sort these sets into their suitable buckets.
+
+\subsection{Locality Sensitive Hashing}
+The idea of LSH when dealing with the problem of finding similar pairs or sets is to maximize the probability of collision in a bucket due to that fact that the hash-code for these sets would be indifferent (if these sets are the similar) and therefore they should be in the same bucket. We can achieve this by breaking the hash-code down even more into subsequences of hash-code that has a higher chance of being similar, giving us a higher chance of finding similar pairs, improving the effectiveness of the algorithm at solving the problem.
 
 \end{document}
