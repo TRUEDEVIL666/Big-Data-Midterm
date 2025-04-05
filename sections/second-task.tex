@@ -1,6 +1,6 @@
 \subsection{Overview of PCY}
 \label{subsec:overview-of-pcy}
-Frequent itemset mining is essential for discovering item associations in transactional data, such as market basket analysis.
+Frequent itemsets mining is essential for discovering item associations in transactional data, such as market basket analysis.
 The PCY algorithm improves efficiency by using hash buckets to reduce the computational cost of finding frequent item pairs.
 This project applies the PCY algorithm to mine frequent itemsets and generate association rules based on support and confidence thresholds, using PySpark for scalable data processing.
 
@@ -22,7 +22,8 @@ This approach significantly reduces the number of pair comparisons and improves 
 
 \subsubsection{Data Loading and Preprocessing}
 Data is loaded using PySpark’s \texttt{read.csv} function.
-Each transaction is represented as a basket, and the data is grouped by customer and date. The \texttt{collect\_set} function is used to create a list of items bought together in each transaction.
+Each transaction is represented as a basket, and the data is grouped by customer and date.
+The \texttt{collect\_set} function is used to create a list of items bought together in each transaction.
 
 \subsubsection{First Pass: Counting Frequent Items}
 In the first pass, each item’s frequency is counted, and only those items that meet the support threshold are considered frequent.
@@ -39,14 +40,16 @@ The rules are sorted by confidence.
 
 \subsection{Experimental Results}
 \label{subsec:experimental-results}
-The PCY algorithm was executed on a transactional dataset of retail transactions, where each transaction (basket) represented a set of items purchased by a customer. The algorithm was applied with the following parameters:
+The PCY algorithm was executed on a transactional dataset of retail transactions, where each transaction (basket) represented a set of items purchased by a customer.
+The algorithm was applied with the following parameters:
 \begin{itemize}
     \item Support threshold: 2 (minimum count for items to be considered frequent).
     \item Confidence threshold: 0.5 (minimum confidence for association rules).
 \end{itemize}
 
 \subsubsection{Frequent Items}
-The first pass of the algorithm counted the occurrence of each item in the transactions. The following are the top 30 frequent items identified based on the support threshold:
+The first pass of the algorithm counted the occurrence of each item in the transactions.
+The following are the top 30 frequent items identified based on the support threshold:
 
 \begin{table}[h]
     \centering
@@ -109,7 +112,8 @@ The top 30 frequent item pairs, sorted by frequency, are as follows:
 \end{table}
 
 \subsubsection{Association Rules}
-Once frequent item pairs were identified, association rules were generated based on the confidence threshold of 0.5. The confidence for each rule was computed by dividing the pair count by the count of the antecedent item. The top 30 association rules, sorted by confidence, are presented below:
+Once frequent item pairs were identified, association rules were generated based on the confidence threshold of 0.5. The confidence for each rule was computed by dividing the pair count by the count of the antecedent item.
+The top 30 association rules, sorted by confidence, are presented below:
 
 \begin{table}[h]
     \centering
@@ -133,7 +137,8 @@ Once frequent item pairs were identified, association rules were generated based
 \end{table}
 
 \subsubsection{Performance Evaluation}
-The PCY algorithm effectively identified frequent items, pairs, and association rules with reasonable execution time and memory usage. Given the dataset size, the distributed nature of Spark ensured that the computation was scalable.
+The PCY algorithm effectively identified frequent items, pairs, and association rules with reasonable execution time and memory usage.
+Given the dataset size, the distributed nature of Spark ensured that the computation was scalable.
 \begin{itemize}
     \item Time Complexity: The use of hashing significantly reduces the complexity of item pair generation, making the PCY algorithm faster than traditional algorithms such as the Apriori algorithm.
     \item Memory Usage: Memory usage was managed well by leveraging the distributed processing capabilities of Spark.

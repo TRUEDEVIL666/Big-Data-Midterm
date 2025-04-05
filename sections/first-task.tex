@@ -1,33 +1,32 @@
-\subsection{Overview of MapReduce}
-\label{subsec:overview-of-mapreduce}
+\subsection{Overview of A-priori Algorithm}
+\label{subsec:overview-of-a-priori-algorithm}
 
-\subsubsection{What is MapReduce}
+\subsubsection{What is the A-Priori Algorithm}
 
-MapReduce is a yarn-based system commonly used for processing massive dataset:
+The A-Priori algorithm is a classic algorithm in data mining used to identify frequent itemsets and derive association rules.
+In the context of this project, it is used to discover pairs of customers who frequently shop together.
 
 \begin{itemize}
-    \item Performs concurrent processing by dividing the dataset into multiple chunks on the Hadoop commodity servers.
-    \item Instead of sending the data to the machine with the logic to execute, we send the logic to the data to execute, specifically, the server.
+    \item It is based on the principle that all subsets of a frequent itemset must also be frequent.
+    \item It uses a level-wise, breadth-first search approach to count the frequency of itemsets.
+    \item It is typically implemented in multiple passes: the first pass finds frequent individual items (1-itemsets), and subsequent passes find larger frequent itemsets (e.g., 2-itemsets, 3-itemsets, etc.).
 \end{itemize}
 
-\subsubsection{How MapReduce works}
-
-MapReduce is executed in the following order:
+\subsubsection{How the A-Priori Algorithm Works (in this task)}
 
 \begin{itemize}
-    \item Split: Divides the dataset into multiple data batches.
-    \item Map: Maps every element within each data batch to a $<key,value>$ pair.
-    \item Await Completion: Wait for all data batches to finish mapping the pairs.
-    \item Combine: Generates $<key,value>$ pairs in the form of a list (e.g., $[[A,1],[A,1]]$)
-    \item Partition: Determines which reducer should handle each key.
-    It uses a hash function (e.g., \texttt{hash(key) \% num\_reducers}) to distribute keys evenly.
-    \item Reduce: Processes every data assigned to it and return the output.
+    \item \textbf{First Pass – Frequent Individual Customers:} Count how many times each individual customer appears in the grouped transaction data.
+    Customers with frequency above a defined threshold are considered frequent.
+    \item \textbf{Second Pass – Frequent Customer Pairs:} For each transaction (i.e., group of customers on a given date), generate all possible customer pairs where both customers are frequent.
+    Count the number of times each pair appears.
+    \item \textbf{Support Threshold:} A predefined threshold used to filter out itemsets (customers or pairs) that do not appear frequently enough to be considered relevant.
+    \item \textbf{Output:} The algorithm outputs customer pairs that occur together at or above the support threshold.
 \end{itemize}
 
 \subsection{First subtask}
 \label{subsec:first-subtask}
 
-In the first subtask, we are assigned to store the data on Hadoop Distributes File System (HDFS).
+In the first subtask, we are assigned to store the data on HDFS.
 After which we will implement a Hadoop MapReduce program in Java to discover groups of customers going shopping at the same date.
 
 \subsubsection{The Mapper Class} \textit{CustomerGroupByDateMapper}
@@ -123,11 +122,11 @@ This approach allows the workflow to seamlessly transition from the first subtas
         \end{center}
     \end{itemize}
 
-    \item Reducer Class: \textit{AprioriFirstPassReducer}
+    \item Reducer Class: \textit{AprioriReducer}
     \begin{itemize}
-        \item Function: Aggregates the occurrences of each customer ID.
-        \item Filtering: Only customers meeting the support threshold (minimum occurrences) are retained.
-        \item Example Output from Reducer:
+        \item Function: Aggregates the counts for each key (customer).
+        \item Filtering: Emits only \texttt{<key, value>} pairs whose frequency is greater than or equal to the support threshold.
+        \item Example Output from Reducer (First Pass):
         \begin{center}
         (12345, 2)\\
         (67890, 1)
@@ -152,9 +151,8 @@ This approach allows the workflow to seamlessly transition from the first subtas
 
     \item Reducer Class: \textit{AprioriReducer}
     \begin{itemize}
-        \item Function: Aggregates the counts for each customer pair.
-        \item Filtering: Emits only those pairs whose frequency is greater than or equal to the support threshold.
-        \item Example Output from Reducer:
+        \item The same class as used in the First Pass.
+        \item Example Output from Reducer (Second Pass):
         \begin{center}
         (12345,67890, 3)
         \end{center}

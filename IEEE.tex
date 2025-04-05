@@ -60,34 +60,46 @@ T \kern -.1667em \lower .7ex \hbox{E} \kern -.125emX}}
     \maketitle
 
     \begin{abstract}
-        This document is a model and instructions for \LaTeX.
-        This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes,
-        or Math in Paper Title or Abstract.
+        In the age of big data, the ability to mine and extract valuable information from massive datasets can give the user an unparalleled edge against the competition.
+        Therefore, this requirement made by the lecturer is designed to simulate one of the three most fundamental challenges in data mining.
+        Through these series of tasks, we will explore some algorithm implementations and solve different problems as well as explore their trade-offs.
+        Each task is a different algorithm to explore and implement with their corresponding datasets.
+        Through these tasks, we will gain some practical insight and experience in working with these algorithms as well as a better understanding of their pros and cons to be able to cater to each dataset based on their characteristics.
     \end{abstract}
 
-    \begin{IEEEkeywords}
-        component, formatting, style, styling, insert
-    \end{IEEEkeywords}
+%    \begin{IEEEkeywords}
+%        component, formatting, style, styling, insert
+%    \end{IEEEkeywords}
 
     \section{Introduction}
     \label{sec:introduction}
 
-    The project consists of three distinct tasks that cover different aspects in mining large datasets.
-    The first task involves the practice of running a MapReduce program in Java and implementation of the A-Priori algorithm with the data given by the lecturer.
-    The second task entails the implementation of the PCY algorithm OOP form to identify frequent pairs and generate relevant information.
-    The last task involves the student conducting implementation of the MinHashLSH algorithm and a manual method of calculating the Jaccard distance to identify similar pairs of dates defined in the requirement, as well as make comparison where needed.
+    This report is divided into three large sections corresponding to the first three tasks provided by the lecturer.
+    We will explore and present our findings while putting the proposed algorithms into practice.
+
+    Task 1 proposes utilizing the A-Priori algorithm in a Hadoop MapReduce program to discover groups of customers shopping on the same date as well as interacting with Hadoop Distributes File System (HDFS) to store files.
+    By applying these methods, we will be able to understand how to extract patterns from large datasets locally.
+
+    The second task focuses on implementing the Park-Chen-Yu (PCY) algorithm using Object-Oriented Programming (OOP) principles and PySpark DataFrame to identify frequent item pairs and generate association rules from customer purchase data stored in Google Drive.
+    The implementation, while generating association rules, also has to follow object-oriented programming principles inspired by PySpark's Frequent-Pattern Growth (FPGrowth) class.
+
+    In the third task, we will implement and compare the MinHashLSH algorithm and an alternative of our choice - in this case, a manual method of calculating Jaccard distance.
+    Both of these approaches should achieve the same goal of searching for similar pairs of dates where the Jaccard distance is above a predetermined threshold.
+    After that, we will visualize their runtime with their threshold ranging from 0 to 1 with 0.1 increments to gauge their performance and outline some characteristics between both approaches.
+    Through these implementations, we demonstrate practical applications of data mining techniques with a given dataset.
+    With these findings, we highlight the trade-offs between various aspects across different algorithms within the given time and constraints.
 
     \section{First Task: A-Priori Algorithm for Frequent Customers}
     \label{sec:first-task}
     \input{sections/first-task}
 
-    \section{Second Task: Park-Chen-Yu (PCY) Algorithm for Frequent Items}
+    \section{Second Task: PCY Algorithm for Frequent Items}
     \label{sec:second-task}
     \input{sections/second-task}
 
     \section{Third Task: MinHashLSH for Similar Dates}
     \label{sec:third-task}
-%    \input{sections/third-task}
+    \input{sections/third-task}
 
     \section*{Acknowledgment}
 
