@@ -67,10 +67,6 @@ T \kern -.1667em \lower .7ex \hbox{E} \kern -.125emX}}
         Through these tasks, we will gain some practical insight and experience in working with these algorithms as well as a better understanding of their pros and cons to be able to cater to each dataset based on their characteristics.
     \end{abstract}
 
-%    \begin{IEEEkeywords}
-%        component, formatting, style, styling, insert
-%    \end{IEEEkeywords}
-
     \section{Introduction}
     \label{sec:introduction}
 
@@ -101,44 +97,77 @@ T \kern -.1667em \lower .7ex \hbox{E} \kern -.125emX}}
     \label{sec:third-task}
     \input{sections/third-task}
 
-    \section*{Acknowledgment}
+    \section{Contribution}
+    \label{sec:contribution}
 
-    The preferred spelling of the word ``acknowledgment'' in America is without an ``e'' after the ``g''.
-    Avoid the stilted expression ``one of us (R. B. G.) thanks $\ldots$''.
-    Instead, try ``R. B. G. thanks$\ldots$''.
-    Put sponsor acknowledgments in the unnumbered footnote on the first page.
+    The following table represents the contribution of each member, note that whichever member handles whichever task will also write the report for that task.
 
-    \section*{References}
+    \begin{table}[h]
+        \centering
+        \caption{Members Contributions}
+        \setlength{\tabcolsep}{2pt} % Reduce column spacing
+        \renewcommand{\arraystretch}{1} % Adjust row spacing
+        \resizebox{240}{!}{ % Fit within column width
+            \begin{tabular}{|l|c|c|c|}
+                \hline
+                \textbf{ID} & \textbf{Member} & \textbf{Contribution} & \textbf{Progress}\\
+                \hline
+                522H0036 & Luong Canh Phong & Task 1 and Handling Report & 100\%\\
+                522H0092 & Cao Nguyen Thai Thuan & Overseer and Report Support & 100\%\\
+                522H0075 & Tang Minh Thien An & Task 3 & 100\%\\
+                522H0167 & Truong Tri Phong & Task 2 & 100\%\\
+                \hline
+            \end{tabular}
+        }
+        \label{tab:contributions}
+    \end{table}
 
-    Please number citations consecutively within brackets~\cite{b1}.
-    The sentence punctuation follows the bracket~\cite{b2}.
-    Refer simply to the reference number, as in~\cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference~\cite{b3}'' except at the beginning of a sentence: ``Reference~\cite{b3} was the first $\ldots$''
+    \section{Self-evaluation}
+    \label{sec:self-evaluation}
 
-    Number footnotes separately in superscripts.
-    Place the actual footnote at
-    the bottom of the column in which it was cited.
-    Do not put footnotes in the abstract or reference list.
-    Use letters for table footnotes.
+    The following table is our self-evaluation on our tasks:
 
-    Unless there are six authors or more give all authors' names; do not use ``et al.''.
-    Papers that have not been published, even if they have been submitted for publication, should be cited as ``unpublished''~\cite{b4}.
-    Papers that have been accepted for publication should be cited as ``in press''~\cite{b5}.
-    Capitalize only the first word in a paper title, except for proper nouns and element symbols.
+    \begin{table}[h]
+        \centering
+        \caption{Self-evaluation}
+        \setlength{\tabcolsep}{2pt} % Reduce column spacing
+        \renewcommand{\arraystretch}{1} % Adjust row spacing
+        \resizebox{240}{!}{ % Fit within column width
+            \begin{tabular}{|l|c|c|c|}
+                \hline
+                \textbf{Task} & \textbf{Task Requirements} & \textbf{Completion Ratio}\\
+                \hline
+                Task 1 & A-Priori Algorithm for Frequent Customers & 100\%\\
+                Task 2 & PCY Algorithm for Frequent Items & 95\%\\
+                Task 3 & MinHashLSH for Similar Dates & 90\%\\
+                Task 4 & Report & 100\%\\
+                \hline
+            \end{tabular}
+        }
+        \label{tab:self-evaluation}
+    \end{table}
 
-    For papers published in translation journals, please give the English
-    citation first, followed by the original foreign-language citation~\cite{b6}.
+    \section{Conclusion}
+    \label{sec:conclusion}
+    We have gone through a variety of techniques and algorithms used in the world of data mining.
+    For the first task, we have to find same-day customers and utilize the A-Priori algorithm to find frequent pairs of customers that shop on the same date and save the output of each pass in a dedicated folder.
+    As we run though the code, the result after sorting is a reasonable ascending list of frequent customer pairs.
+    For the second task, store the given dataset locally and identify baskets, as well as implementing the PCY algorithm to find frequent pairs along with generating metadata with predetermined constraints, the results for this task are two separate lists, one containing all frequent pairs, and the other is a list of association rules based on the user's given support threshold and confidence value.
+    And finally, implement and compare between a traditional and an alternative MinHashLSH function to understand and have a greater insight into how the frequent pairs searching is done.
+    We can see that with a slight modification and a different way of merging, it can result in a notably higher efficiency and better results.
 
     \begin{thebibliography}{00}
-        \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-        \bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-        \bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-        \bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-        \bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-        \bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-        \bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+        \bibitem{b12} Tpoint Tech, ``Apriori Algorithm, ''\\\
+        [Online]. Available: \href{https://www.tpointtech.com/apriori-algorithm}{https://www.tpointtech.com/apriori-algorithm}
+        \bibitem{b6} Databricks, ``MapReduce, '' Databricks Glossary, 2025.\\\
+        [Online]. Available: \href{https://www.databricks.com/glossary/mapreduce}{https://www.databricks.com/glossary/mapreduce}
+        \bibitem{b1} J. S. Park and M. S. Chen, ``Using a hash table to eliminate candidates in a frequent itemset mining algorithm, '' \textit{IEEE Trans. Knowl. Data Eng.}, vol. 7, no. 3, pp. 464--472, 1995.
+        \bibitem{b2} J. Han, J. Pei, and Y. Yin, ``Mining frequent patterns without candidate generation, '' \textit{ACM SIGMOD Rec.}, vol. 29, no. 2, pp. 1--12, 2000.
+        \bibitem{b3} PySpark Documentation, ``PySpark API Documentation, '' 2025.\\\
+        [Online]. Available: \url{https://spark.apache.org/docs/latest/api/python}
+        \bibitem{b4} PySpark Documentation, ``pyspark.ml.feature.MinHashLSH, '' Apache Spark, 2025.\\\
+        [Online]. Available: \href{https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.MinHashLSH}{https://spark.apache.org/docs/latest/api/python/refer\-ence/api/pyspark.ml.feature.MinHashLSH}
+        \bibitem{b5} Amazon Web Services, ``Jaccard similarity, '' AWS Neptune Analytics Documentation, 2024.\\\
+        [Online]. Available: \href{https://docs.aws.amazon.com/neptune-analytics/latest/userguide/jaccard-similarity.html}{https://docs.aws.amazon.com/neptune-analytics/latest/userguide/jaccard-similarity.html}
     \end{thebibliography}
-    \vspace{12pt}
-    \color{red}
-    IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
-
 \end{document}

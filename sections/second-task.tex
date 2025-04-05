@@ -143,34 +143,3 @@ Given the dataset size, the distributed nature of Spark ensured that the computa
     \item Time Complexity: The use of hashing significantly reduces the complexity of item pair generation, making the PCY algorithm faster than traditional algorithms such as the Apriori algorithm.
     \item Memory Usage: Memory usage was managed well by leveraging the distributed processing capabilities of Spark.
 \end{itemize}
-
-%\subsection{Contributions}
-%The project was divided into the following tasks:
-%\begin{itemize}
-%    \item [Your Name]: Implemented the PCY algorithm, designed the class structure, and developed the data preprocessing functions.
-%    \item [Group Member 2]: Focused on developing the association rule generation functionality and handled the confidence threshold calculation.
-%    \item [Group Member 3]: Implemented data loading, Spark session management, and optimized the bucket counting logic.
-%    \item [Lecturer Name]: Provided guidance on the overall project structure and reviewed the final implementation.
-%\end{itemize}
-%
-%\subsection{Self-Evaluation}
-%\begin{itemize}
-%    \item Task Completion: The project was successfully implemented with full functionality. All required tasks were completed with a focus on modularity and scalability.
-%    \item Estimated Score: Based on the project’s alignment with the requirements and completeness of the implementation, an estimated score of 95\% is assigned.
-%\end{itemize}
-%
-%\subsection{Conclusion}
-%This project successfully implemented the PCY algorithm for frequent itemset mining and association rule generation using PySpark. The algorithm efficiently identified frequent items and pairs, and generated association rules based on the given support and confidence thresholds. The use of hash buckets in the second pass helped prune non-frequent item pairs, improving performance. The implementation was carried out in an object-oriented manner to support scalability and maintainability. Further optimizations, such as parallelizing certain steps and optimizing memory usage, could enhance performance for larger datasets.
-%
-%\subsection{References}
-%\begin{enumerate}
-%    \item Park, J. S., & Chen, M. S. (1995).
-%    Using a hash table to eliminate candidates in a frequent itemset mining algorithm.
-%    IEEE Transactions on Knowledge and Data Engineering, 7(3), 464-472.
-%    \item Han, J., Pei, J., & Yin, Y. (2000).
-%    Mining frequent patterns without candidate generation.
-%    ACM SIGMOD Record, 29(2), 1-12.
-%    \item PySpark Documentation. (2025).
-%    PySpark API Documentation.
-%    Retrieved from https://spark.apache.org/docs/latest/api/python.
-%\end{enumerate}

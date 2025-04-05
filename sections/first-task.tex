@@ -23,6 +23,25 @@ In the context of this project, it is used to discover pairs of customers who fr
     \item \textbf{Output:} The algorithm outputs customer pairs that occur together at or above the support threshold.
 \end{itemize}
 
+\textbf{Note:} The output of the first subtask (Customer Grouping by Date) will serve as the input for both passes of the second subtask (A-Priori Algorithm):
+
+\begin{itemize}
+    \item First Subtask (Customer Grouping by Date):
+    \begin{itemize}
+        \item \texttt{args[0]} – Input path to the raw transaction CSV file.
+        \item \texttt{args[1]} – Output path where grouped customer data by date will be written.
+    \end{itemize}
+
+    \item Second Subtask (A-Priori Algorithm):
+    \begin{itemize}
+        \item \texttt{args[0]} – Input path to the grouped customer data (output from the first subtask).
+        \item \texttt{args[1]} – Output path for the first pass (frequent individual customers).
+        \item \texttt{args[2]} – Output path for the second pass (frequent customer pairs).
+    \end{itemize}
+\end{itemize}
+
+This approach allows the workflow to seamlessly transition from the first subtask (grouping by date) to the second subtask (identifying frequent customers and pairs).
+
 \subsection{First subtask}
 \label{subsec:first-subtask}
 
@@ -65,43 +84,11 @@ Example Output from Reducer:
 (02/01/2014, 11111)
 \end{center}
 
-\subsubsection{Driver Program (Main Method)}
-
-The driver program configures and runs the MapReduce job.
-It performs the following actions:
-
-\begin{itemize}
-    \item Job Setup: A Hadoop job is created with the name \texttt{Customer Date Groups}, using \texttt{GroupMapReduce} as the main class.
-    \item Mapper and Reducer Assignment: The appropriate Mapper and Reducer classes are set.
-    The Reducer is also used as a Combiner.
-    \item I/O Paths: The input and output paths are taken from command-line arguments.
-    \item Job Execution: The job is submitted to Hadoop, and the program exits based on success or failure.
-\end{itemize}
-
 \subsection{Second subtask}
 \label{subsec:second-subtask}
 
 In the second subtask, we implement the A-Priori algorithm to identify frequent customer pairs.
 This is achieved using two MapReduce passes.
-
-\textbf{Note:} The output of the first subtask (Customer Grouping by Date) will serve as the input for both passes of the second subtask (A-Priori Algorithm):
-
-\begin{itemize}
-    \item First Subtask (Customer Grouping by Date):
-    \begin{itemize}
-        \item \texttt{args[0]} – Input path to the raw transaction CSV file.
-        \item \texttt{args[1]} – Output path where grouped customer data by date will be written.
-    \end{itemize}
-
-    \item Second Subtask (A-Priori Algorithm):
-    \begin{itemize}
-        \item \texttt{args[0]} – Input path to the grouped customer data (output from the first subtask).
-        \item \texttt{args[1]} – Output path for the first pass (frequent individual customers).
-        \item \texttt{args[2]} – Output path for the second pass (frequent customer pairs).
-    \end{itemize}
-\end{itemize}
-
-This approach allows the workflow to seamlessly transition from the first subtask (grouping by date) to the second subtask (identifying frequent customers and pairs).
 
 \subsubsection{The First Pass} Identifying Frequent Individual Customers
 
@@ -156,40 +143,5 @@ This approach allows the workflow to seamlessly transition from the first subtas
         \begin{center}
         (12345,67890, 3)
         \end{center}
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Driver Program (Main Method)}
-
-\begin{itemize}
-    \item First Pass Execution:
-    \begin{itemize}
-        \item The first MapReduce job is run with \texttt{AprioriFirstPassMapper} to compute individual customer frequencies.
-        \item The output is saved and later loaded into memory for the second pass.
-    \end{itemize}
-
-    \item Second Pass Execution:
-    \begin{itemize}
-        \item The second job uses \texttt{AprioriSecondPassMapper}, which loads the frequent customers using Hadoop's cache mechanism.
-        \item It then computes the frequency of customer pairs and applies the support threshold.
-    \end{itemize}
-\end{itemize}
-
-\subsubsection{Helper Method} \textit{createJob}
-
-A reusable helper method named \texttt{createJob} is implemented to reduce code repetition when setting up MapReduce jobs.
-
-\begin{itemize}
-    \item Parameters:
-    \begin{itemize}
-        \item \texttt{jobName}: A string representing the name of the job.
-        \item \texttt{mapperClass}: The class to be used as the Mapper.
-        \item \texttt{inputPath}, \texttt{outputPath}: Paths for input and output directories.
-    \end{itemize}
-    \item Functionality:
-    \begin{itemize}
-        \item Configures the job with the specified name and sets the \texttt{AprioriReducer} as both the Combiner and Reducer.
-        \item Assigns key and value output types and adds file paths.
-        \item Returns a configured \texttt{Job} instance ready for execution.
     \end{itemize}
 \end{itemize}
