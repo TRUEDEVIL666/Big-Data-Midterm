@@ -45,7 +45,7 @@ Optimized Manual Jaccard: Instead of performing a complete cross-join, we use a 
     \item Filter pairs based on the given similarity threshold.
 \end{itemize}
 
-With a manual method of calculating the Jaccard distance for each pair, we can utilize this function in our own Brute Force (BF) MinHashLSH algorithm
+With a manual method of calculating the Jaccard distance for each pair, we can utilize this function in our own Brute Force (BF) MinHashLSH algorithm.
 
 \subsection{Experimental Results}
 \label{subsec:experimental-results2}
@@ -79,7 +79,7 @@ As you can refer from Table~\ref{tab:comparison} and subsequent graph, there is 
 For the traditional MinHashLSH implemented from the PySpark library, its runtime has a significant decrease as the threshold passes the 0.3 mark, taking up only one third of the time when compared to the runtime of a higher threshold.
 Meanwhile, our Brute Force function while performing remarkably well at the first few increments of thresholds, it struggles to retain its performance when tasked to do such a task with a higher threshold.
 All in all, despite having opposite trends, the BF function returns a higher efficiency with lower runtime and higher yield of frequent pairs.
-This can be attributed to the fact that the BF function uses a different merging method with utilization of broadcast() function to optimize traffic, giving our BF function a better runtime on paper
+This can be attributed to the fact that the BF function uses a different merging method with utilization of broadcast() function to optimize traffic, giving our BF function a better runtime on paper.
 
 \begin{figure}
     \label{fig:figure}
